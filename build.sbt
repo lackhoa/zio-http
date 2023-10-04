@@ -149,6 +149,8 @@ lazy val zioHttp = (project in file("zio-http"))
         case _            => Seq.empty
       }
     },
+    libraryDependencies += "dev.zio" %% "zio-profiling" % "0.2.1",
+    libraryDependencies += compilerPlugin("dev.zio" %% "zio-profiling-tagging-plugin" % "0.2.1")
   )
 
 /**
@@ -221,7 +223,9 @@ lazy val zioHttpExample = (project in file("zio-http-example"))
   .settings(stdSettings("zio-http-example"))
   .settings(publishSetting(false))
   .settings(runSettings(Debug.Main))
-  .settings(libraryDependencies ++= Seq(`jwt-core`))
+  .settings(libraryDependencies ++= Seq(`jwt-core`),
+    libraryDependencies += compilerPlugin("dev.zio" %% "zio-profiling-tagging-plugin" % "0.2.1")
+  )
   .dependsOn(zioHttp, zioHttpCli)
 
 lazy val zioHttpTestkit = (project in file("zio-http-testkit"))
